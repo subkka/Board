@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.study.springboot.dao.IBoardDao">
+	
+	<select id="list" resultType="com.study.springboot.dto.BoardDto">
+		<![CDATA[
+		select * from board
+		WHERE ROWNUM <= 10 ORDER BY board_idx DESC
+		]]>
+	</select>
+	
+	<insert id="write">
+		insert into board (board_idx, board_name, board_title, board_content, board_date)
+			values (board_seq.nextval, #{ param1 }, #{ param2 }, #{ param3 }, SYSDATE)
+	</insert>
+	
+	<select id="viewDto" resultType="com.study.springboot.dto.BoardDto">
+		select * from board where board_idx=#{ param1 }
+	</select>
+	
+	<update id="updateDto">
+		update board set board_name=#{ param2 }, board_title=#{ param3 }, board_content=#{ param4 } where board_idx=#{ param1 }
+	</update>
+	
+	<delete id="deleteDto">
+		delete from board where board_idx=#{ param1 }
+	</delete>
+</mapper>
